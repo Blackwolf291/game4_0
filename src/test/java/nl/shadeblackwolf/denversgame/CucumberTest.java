@@ -5,7 +5,7 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"}, features = {"src/test/resources", "src/test/gherkin"}, strict = true)
+@CucumberOptions(plugin = {"pretty"}, features = {"src/test/gherkin"})
 public class CucumberTest {
 }
 

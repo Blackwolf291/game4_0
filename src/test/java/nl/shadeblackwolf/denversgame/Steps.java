@@ -15,12 +15,9 @@ import static org.junit.Assert.assertThat;
 
 @StepDefAnnotation
 public class Steps implements En {
-    private Player player;
     public Steps() {
         TestGameRunner testGameRunner = new TestGameRunner();
         TestFileManager testFileManager = new TestFileManager();
-
-        Before(this::createPlayer);
 
         After(testFileManager::purgeTemporaryFiles);
 
@@ -40,22 +37,11 @@ public class Steps implements En {
         Then("^the UI is running$", () -> assertThat(UI.getInstance().running(), is(true)));
         Then("^the titlescreen is displayed$", () -> assertThat(UI.getInstance().getCurrentScreen(), instanceOf(TitleScreen.class)));
 
-        createHealthSteps();
-
         createFacingSteps();
 
         createMovementSteps();
 
         createButtonSteps();
-    }
-
-    private void createHealthSteps() {
-        Given("^the player has (\\d+) max health$", (Integer i) -> {
-            player.resetHealthTanks();
-            assertThat(player.getMaxHealth(), is(i));
-        });
-
-        Then("^the player now has (\\d+) max health$", (Integer i) -> assertThat(player.getMaxHealth(), is(i)));
     }
 
     private void createMovementSteps() {
@@ -90,9 +76,4 @@ public class Steps implements En {
             throw new PendingException();
         });
     }
-
-    private void createPlayer() {
-        player = new Player();
-    }
-
 }
